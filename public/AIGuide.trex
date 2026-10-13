@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <dashboard-extension id="com.github.viaconbodhi.cctr.aiguide" extension-version="0.1.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>CCTR AI Guide Phase 1 resize diagnostic. No backend connected.</description>
+    <author name="CCTR" organization="CCTR" website="https://github.com/viaConBodhi/Tableau_Chatbot_UI"/>
+    <min-api-version>1.7</min-api-version>
+    <source-location>
+      <url>https://tableau-chatbot-ui.algo-alert-cramer.workers.dev/</url>
+    </source-location>
+    <icon>iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAEsUlEQVR4nO2a+U8UdxTA/WOmaGut/eHLEUEa4zEsKKJdgUpibaVoWggVE1Jtqw2oYKO2gHUFQYoFlNYCHlziRRsULNpKoVjEgBdSRJH75pn3DTvdWWaWPWZ3xt3vS16Y4Xu8t598j/m+953HER6Y8rMYzGNQeMmBwcAQBgZsmR1sxBAGBtiIIY7vtGwqEQYG2IghbjKVAkKiYNuOb6gGBEep7o/qYHxXRcDFq7VgLjW1f4C/bqNngvFevgH+e9YDctLV3QNkud7zwJyvvApzybnKK54F5q0lq2F8YkIAMDExCTn5ZyCn4Ff6bBSsg3U9Bsz6TXGikVFyoVooKym7JCpbtynOc8AEbfhE9ONr628LZddv/ikq4/XRngPGy0cHg0PDIgA9z3upmkr/wCC84R3kOWA4wsN3hrw5F9+DP+Sq4puqYOb76ugUkpPf627ROh4HhiM8nSb7DmfC5OT/OxE+7z1kUG0KaQIMN6Omaws+q+0PA0MYGNDMiOH10ZCelQ83bzfCg0ed8LKvX1anp6eFqYTPlup2PHoC9bcaad/O/MZRHMy7762DM+eqYGpqCpwtaOOXs1XUpqbBBIREQev9DnC1oE2l4ziKgVkUEArNd9skHR8ZGbU4PQYGh+g2jYrPlupiX1LS1NIKb/uHag9MxvH8Wc4WX6iGoPAYxYe5LiKGHjzNJS3zJ22BWRwYNuvsk/J9luJAzPVAWrbIJvrwztK12gET98U+2dOys7Wu4S+R7c8Sk7QDJivvZ5Fz8bv2uwzM9i9TRLYz84q0A6bEbL6HRn0qWW+BbzCN9drav8+KcNpWqgxtyQW9XALGy0cHeadL4XFnF/2L78aysovXRM5hIMq07Zt+IZBbWAxj4+PC9qrfHD+nTf1Hn0Nb+0PaZnR0DE4UFNO+LAW90BdrfFYMTEzCHpED+G4tmKM5hWAuL3r7aPpEzp4fHwm9L/tntTuSXWA1GEs+KwZmT2qGyAi+Wwums6tbgIFxFqPsTDosaw/LjPLbjQYBUufTbqvBWPJZE2D6+gfo/9sfPAZD7mmhXvJBg6w9jMkYxXDiFHQ8fEKf8SPPbcCcl8ghYWrE0iEQPwxNUylGKS2/7D5g/PhIuNN0VygfHRuDr/enz2lzd0o6rWuUxuZ/wWdluPuA4WZivBFbEugH2JKgD6x2EHPYsYnJEP7xdskY8GsPhnOSMjCEgQE2YogbTKUYB758jYvvt+nZtG55dY1Nim2wra2Lr0u+fL0cOCtJxU7sEezDFjAuOStxDp6ui0orHAaDfWjudM05GI/BH4BnJXsF20oBT/gqVVTv2I8aisfEJiaLnMM7LlL1MFi9bO2HdqlcoFvTEbzFgWEwNDwicjA17bgiDlpSXJBNBTMMmK3QDBhOJktwtuIKBEdsVRxISOQ2enHRXNIyT2ozr9TUcs+uvJItKpdX+vufVljov0Z7YDjMRAarlIlsa1f8wrRTctdFpRWiy0DOErRRVFJO17jX5rbDyve30MxgXcMdekNBqamEfWGfuJ6gDbe+UcVpUBkYwsAAGzGETSVgawxhiy+ovSOxXYkwMMBGDGFTCdgaQ9jiC2rvRmxXIgwM2DNiXgG+f4sRp3cFSQAAAABJRU5ErkJggg==</icon>
+  </dashboard-extension>
+  <resources>
+    <resource id="name">
+      <text locale="en_US">AI Guide</text>
+    </resource>
+  </resources>
+</manifest>

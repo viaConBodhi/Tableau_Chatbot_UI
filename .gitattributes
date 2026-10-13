@@ -1,0 +1,3 @@
+public/lib/tableau.extensions.1.17.0.js -text linguist-vendored
+public/licenses/tableau-extensions-api.LICENSE.txt -text
+public/*.trex text eol=lf

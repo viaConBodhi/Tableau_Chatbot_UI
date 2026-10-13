@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/tableau/extensions-api",
+  "revision": "7b8fc96ff835a6fb3aa046c88d3889114198c785",
+  "version": "1.17.0",
+  "files": {
+    "lib/tableau.extensions.1.17.0.js": "af10dc548b24592b08a23b21ce221aefb6b56c84f45617ad0338789be5e7c20f",
+    "LICENSE.txt": "7f32b32434490332df34d81b4b91f310f5885920ecb9890774b38b772f08c660"
+  }
+}

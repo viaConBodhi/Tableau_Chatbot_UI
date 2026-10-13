@@ -17,7 +17,7 @@ In **Settings > Build**, use:
 | Root directory | Repository root (blank or `/` in the UI) |
 | Build command | `npm run build` |
 | Deploy command | `npx wrangler deploy` |
-| Node version | Node 22; respect `.nvmrc` or explicitly configure it |
+| Node version | Node 22.23.3; respect `.nvmrc` or explicitly configure it |
 
 There is no Pages framework preset or Pages output-directory setting. Assets
 come from Wrangler configuration. The build must run before deploy: `dist` is
@@ -33,15 +33,18 @@ failed commit. Match the intended full Git SHA and active production version.
 npm run verify:deploy -- https://tableau-chatbot-ui.algo-alert-cramer.workers.dev/
 ```
 
+When using the development verifier against the production bootstrap, add
+`--bootstrap` (the stub has no extension manifests or scripts).
+
 The optional second argument is the full expected SHA. Without it the verifier
 uses local HEAD. It checks HTML content, revision, headers, redirects, and
 missing-file 404s. `build-info.json` contains only commit, branch, and UTC build
 time. Workers Builds supplies `WORKERS_CI_COMMIT_SHA` and `WORKERS_CI_BRANCH`;
 local builds use Git. Do not put secrets or Tableau context in metadata.
 
-**Gate:** verify production before creating `dev` or starting the Tableau spike.
-The bootstrap contains no manifests. XML, environment-URL, script, and library
-verification will be added when those assets exist.
+**Gate passed:** production bootstrap `830ce9101206d3b78538079d38369864b858fac5`
+was verified on October 13, 2026. The new development verifier also validates XML,
+environment URLs, application assets, and the SDK checksum.
 
 ## Development publishing (after the bootstrap gate)
 
@@ -49,10 +52,12 @@ Create `dev` from the verified bootstrap revision. Enable non-production builds
 and configure their command:
 
 ```sh
-npx wrangler versions upload --preview-alias dev
+npm run deploy:dev
 ```
 
-This uses a Worker Version URL, updating the development alias without
+This script enforces the `dev` branch and invokes
+`wrangler versions upload --preview-alias dev`. It uses a Worker Version URL,
+updating the development alias without
 promoting that version to production. Preserve this model; do not switch to a
 different Cloudflare preview model while following these instructions.
 
@@ -94,7 +99,8 @@ with the manifest already in the workbook.
 | Clean lockfile installation | Passed with `npm ci` |
 | Local bootstrap build and Wrangler dry run | Passed on Node 22.23.3 and 24.21.0 / Wrangler 4.149.0 |
 | Local HTTP verification and failure detection | Passed; correct revision, headers, body, 404, and rejection fixtures |
-| Production bootstrap deployment | Pending |
+| Production bootstrap deployment | Passed: `830ce91`, October 13, 2026; HTML, revision, framing/cache headers, and 404 behavior |
+| Local resize diagnostic | Passed: 20 tests, production build, Worker dry run, full asset verification, and Chrome 155 browser smoke |
 | Rollback and recovery rehearsal | Pending |
 | Development alias | Pending |
 | Desktop resize gate | Pending |

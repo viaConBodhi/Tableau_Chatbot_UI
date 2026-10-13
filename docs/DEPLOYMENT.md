@@ -145,7 +145,7 @@ with the manifest already in the workbook.
 | Local HTTP verification and failure detection | Passed; correct revision, headers, body, 404, and rejection fixtures |
 | Production bootstrap deployment | Passed: `830ce91`, October 13, 2026; HTML, revision, framing/cache headers, and 404 behavior |
 | Local resize diagnostic | Passed: 21 tests, production build, Worker dry run, full asset verification, and Chrome 155 browser smoke |
-| Local chat interface | Passed: 44 tests across seven files, local Chrome 155 chat smoke, production/development test-control guards, build, Worker dry run, and full local asset verifier; Desktop manual acceptance pending |
+| Local chat interface | Passed: full 47-test suite across seven files, browser checks without newer APIs, production/development test-control guards, build, dry run, and local asset verification. User confirmed Desktop greeting, typing, Send, dashboard-name demo replies, and New conversation; remaining manual scenarios pending |
 | Rollback and recovery rehearsal | Pending |
 | Development Worker Preview | Passed: Cloudflare build and full deployed verifier at `d907a96`, October 13, 2026 |
 | Desktop resize gate | Core interaction checks passed by user report on October 13, 2026; remaining evidence and keyboard/layout checks in `RESIZE_SPIKE.md` |

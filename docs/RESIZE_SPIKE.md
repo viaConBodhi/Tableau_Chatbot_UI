@@ -68,6 +68,11 @@ that report. Dashboard dimensions, displayed Desktop/API versions, live layout
 changes, and keyboard focus still need explicit evidence for the final acceptance
 record. No hosted Server results have been reported yet.
 
+After the chat port and Chromium 87 compatibility fix, the user confirmed
+Desktop greeting, typing, Send, normal mock replies with dashboard names, and
+New conversation. Additional manual mock scenarios remain pending; see
+`CHAT_ACCEPTANCE.md`. Server safe-list approval still delays hosted testing.
+
 ## Hosted Server gate
 
 The owner confirmed SDK licensing review and approved development publication

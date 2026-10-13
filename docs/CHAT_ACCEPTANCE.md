@@ -88,7 +88,15 @@ context, lost-reply recovery, reset preservation, malformed replies, unsafe sour
 stale/disposed results, instance isolation, pending replies while closed, focus,
 scroll/draft retention, and the original host/geometry/manifest regression suite.
 
-Desktop chat manual acceptance and hosted Server acceptance remain pending.
+The user confirmed after the compatibility fix that greeting, typing, sending
+normal demo replies with dashboard-name context, and New conversation work in
+Desktop. Remaining manual source/failure/slow-reply scenarios and hosted Server
+acceptance are pending. The user requested continuing the build after this test.
+
+Demo scenario selects simulated reply behavior for development testing; it is
+not a model selector or connection to a real AI service. Layout test opens the
+retained sizing/persistence diagnostic. Both controls are local development tools
+and are omitted from a default hosted build.
 
 ### Desktop startup compatibility fix
 
@@ -110,10 +118,14 @@ local chat smoke and built-client smoke passed with `structuredClone` and
 sources, draft/scroll retention, replies while closed, small-layout controls,
 and reload. The built check also confirms development overrides stay disabled.
 The application build and full local asset verifier passed. No page errors or
-external chat/context requests were observed. Actual Desktop retest remains
-pending user confirmation.
+external chat/context requests were observed. The user subsequently confirmed
+that actual Desktop startup, typing, Send, and New conversation work.
 
 On October 13, 2026, all 44 tests across seven files passed on Node 22.23.3.
+After the compatibility fix and the user's Desktop confirmation, the complete
+suite was rerun: all 47 tests across seven files passed before development
+publication. The three additional checks cover older browser APIs, independent
+JSON copies of cached replies, and explicit secure-randomness failure reporting.
 The runner uses two VM-thread workers with per-file isolation; the original fork
 pool hit startup timeouts on this Windows-mounted workspace. Pure controller,
 geometry, and manifest checks run in Node; UI checks use jsdom.

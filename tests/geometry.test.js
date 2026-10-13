@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { collapsedRectangle, expandedRectangle, objectRectangle } from '../src/tableau/geometry.js';
 

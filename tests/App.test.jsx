@@ -5,20 +5,27 @@ import userEvent from '@testing-library/user-event';
 import App from '../src/App.jsx';
 import { createTableauHost } from '../src/tableau/host.js';
 import { tableauFixture } from './tableau-fixture.js';
+import { createChatController } from '../src/chat/controller.js';
+import { createMockAdapter } from '../src/chat/mock-adapter.js';
 
 const hosts = [];
+const chats = new Map();
+function diagnosticApp(host) {
+  if (!chats.has(host)) chats.set(host, createChatController({ adapter: createMockAdapter({ delayMs: 0 }) }));
+  return <App host={host} chat={chats.get(host)} testControls initialView="diagnostic" />;
+}
 function createHost(options) {
   const host = createTableauHost(options);
   hosts.push(host);
   return host;
 }
-afterEach(() => hosts.splice(0).forEach(host => host.dispose()));
+afterEach(() => { hosts.splice(0).forEach(host => host.dispose()); chats.forEach(chat => chat.dispose()); chats.clear(); });
 
 describe('resize diagnostic UI', () => {
   it('preserves text, probe state, scroll, and keyboard focus across toggles', async () => {
     const user = userEvent.setup();
     const host = createHost({ standalone: true, viewport: () => ({ width: 1000, height: 800 }) });
-    render(<App host={host} />);
+    render(diagnosticApp(host));
     await user.click(await screen.findByRole('button', { name: 'AI Guide' }));
     const close = screen.getByRole('button', { name: 'Close AI Guide' });
     await waitFor(() => expect(document.activeElement).toBe(close));
@@ -37,7 +44,7 @@ describe('resize diagnostic UI', () => {
   it('keeps Close reachable after a failed collapse', async () => {
     const user = userEvent.setup();
     const fixture = tableauFixture();
-    render(<App host={createHost({ tableau: fixture.tableau })} />);
+    render(diagnosticApp(createHost({ tableau: fixture.tableau })));
     await user.click(await screen.findByRole('button', { name: 'AI Guide' }));
     fixture.dashboard.moveAndResizeDashboardObjectsAsync.mockRejectedValueOnce(new Error('Not allowed'));
     await user.click(screen.getByRole('button', { name: 'Close AI Guide' }));
@@ -47,7 +54,7 @@ describe('resize diagnostic UI', () => {
   });
 
   it('shows a real integration error rather than an implicit standalone demo', async () => {
-    render(<App host={createHost({ tableau: {} })} />);
+    render(diagnosticApp(createHost({ tableau: {} })));
     expect((await screen.findByRole('alert')).textContent).toContain('library could not load');
     expect(screen.getByRole('button', { name: 'Retry connection' })).toBeTruthy();
     expect(screen.queryByText(/Standalone dev mode/)).toBeNull();
@@ -57,10 +64,10 @@ describe('resize diagnostic UI', () => {
     const user = userEvent.setup();
     const fixture = tableauFixture();
     const host = createHost({ tableau: fixture.tableau });
-    const first = render(<App host={host} />);
+    const first = render(diagnosticApp(host));
     await screen.findByRole('button', { name: 'AI Guide' });
     first.unmount();
-    render(<App host={host} />);
+    render(diagnosticApp(host));
     await user.click(screen.getByRole('button', { name: 'AI Guide' }));
     expect(screen.getByRole('region', { name: 'AI Guide panel' })).toBeTruthy();
     expect(fixture.tableau.extensions.initializeAsync).toHaveBeenCalledTimes(1);

@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import sharp from 'sharp';
 import { build } from 'vite';
-import { repositoryRoot, writeBuildInfo } from './build-info.mjs';
+import { createBuildInfo, repositoryRoot, writeBuildInfo } from './build-info.mjs';
 import { MANIFESTS, makeManifest, validateManifest } from './manifests.mjs';
 
 const source = await readFile(new URL('src/assets/robot.svg', repositoryRoot), 'utf8');
@@ -30,6 +30,8 @@ for (const packageName of ['react', 'react-dom']) {
   await writeFile(new URL(`public/licenses/${packageName}.LICENSE.txt`, repositoryRoot), notice);
 }
 
-await build({ root: fileURLToPath(repositoryRoot) });
-const metadata = await writeBuildInfo(fileURLToPath(new URL('dist/', repositoryRoot)));
-console.log(`Built Tableau resize diagnostic for ${metadata.branch} at ${metadata.commit}.`);
+const metadata = createBuildInfo();
+const testControls = metadata.branch === 'dev' && process.env.AI_GUIDE_TEST_CONTROLS === 'true';
+await build({ root: fileURLToPath(repositoryRoot), define: { 'import.meta.env.VITE_AI_GUIDE_TEST_CONTROLS': JSON.stringify(testControls ? 'true' : 'false') } });
+await writeBuildInfo(fileURLToPath(new URL('dist/', repositoryRoot)), metadata);
+console.log(`Built Tableau AI Guide chat demo for ${metadata.branch} at ${metadata.commit}; test controls ${testControls ? 'enabled' : 'disabled'}.`);

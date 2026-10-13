@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createTableauHost } from '../src/tableau/host.js';
 import { tableauFixture } from './tableau-fixture.js';

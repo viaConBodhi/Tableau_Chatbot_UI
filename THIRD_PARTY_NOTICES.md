@@ -16,6 +16,15 @@ Tableau SDK was complete and authorized development publication. This records
 the owner's confirmation; it does not relicense the SDK or provide a legal
 compatibility determination.
 
+## UI reference
+
+The chat layout and interaction were adapted from the owner's Informatics_Chatbot
+Forge app, reference revision `d026b1e238f9f0b062700434ecdeb0a81acb36db`,
+`Informatics_Chatbot/static/hello-world/src/App.jsx` and `App.css`. The source
+repository was read only. The Tableau port uses the existing project license;
+it does not include Forge bridge code, Atlassian profile calls, or browser
+identity/storage helpers.
+
 ## Artwork
 
 The robot SVG is original project artwork. The manifests' 70 × 70 PNG is rendered

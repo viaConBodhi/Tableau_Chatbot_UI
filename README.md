@@ -3,16 +3,21 @@
 AI Guide will provide a chat panel inside a Tableau dashboard. Phase 1 uses
 in-memory mock responses; it does not connect to AWS or collect user identity.
 
-The production hosting bootstrap is verified. The local `dev` branch now contains
-the resize diagnostic: prove Tableau integration before porting the chat UI.
+The production hosting bootstrap and hosted development resize diagnostic are
+verified. The local `dev` branch now contains the Forge-style chat interface with
+mock replies, sources, retry, and New conversation. Desktop chat acceptance is
+next; hosted Server acceptance awaits the administrator's safe-list entry.
 
 ## Hosting
 
 Production: <https://tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
 
-Development uses a `dev` Worker Preview. Record its actual stable URL from the
-first successful preview build, then update the development manifest if needed.
-The originally planned Version URL has not been verified.
+Development Worker Preview:
+<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
+
+The first `dev` publication passed Cloudflare Builds and full HTTP verification
+at commit `d907a96` on October 13, 2026. The existing development manifest already
+uses the verified stable Preview URL. Hosted Tableau Server acceptance is next.
 
 Use **Cloudflare Workers Builds**, not Pages:
 
@@ -63,10 +68,8 @@ not prove Tableau integration. Production builds ignore the standalone flag.
 Verify the hosted development extension against the published checkout's commit:
 
 ```sh
-npm run verify:deploy -- "<actual stable Preview URL>"
+npm run verify:deploy -- https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/
 ```
-
-Replace the placeholder with the URL reported by the successful preview build.
 
 You can supply a full expected commit SHA as the second argument. Verification
 checks HTML, revision, headers, missing-file behavior, scripts/styles, XML
@@ -87,6 +90,15 @@ production stub, which does not yet contain the extension assets.
 
 See the [resize acceptance checklist](docs/RESIZE_SPIKE.md). Do not enter patient
 or participant information into diagnostic text.
+
+Reload the local extension to try the chat. Use **Demo scenario** for normal,
+slow, sources, lost-reply, permanent-failure, reset-failure, and malformed replies.
+**Layout test** retains the original diagnostic; **Back to chat** preserves chat
+state. Follow the [chat acceptance checklist](docs/CHAT_ACCEPTANCE.md).
+
+Test controls are local by default. To explicitly include them in a hosted `dev`
+build, set `AI_GUIDE_TEST_CONTROLS=true` under Cloudflare Previews Base. The build
+disables them on `main` even if that variable is set. There is no real backend.
 
 See [deployment instructions](docs/DEPLOYMENT.md) and the
 [Phase 1 requirements](docs/PHASE_1_PLAN.md).

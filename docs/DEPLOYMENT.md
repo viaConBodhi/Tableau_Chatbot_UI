@@ -62,6 +62,11 @@ Select Previews Base, edit its build configuration, and save:
 | Root directory | `/` |
 | Builds for Preview branches | Enabled |
 
+For the later chat testing build, optional Previews Base build variable
+`AI_GUIDE_TEST_CONTROLS=true` enables mock scenarios and the retained layout
+diagnostic on `dev` only. Leave it unset for a normal mock-chat build. No runtime
+secret is needed; the builder disables these controls on `main`.
+
 Production retains branch `main`, build `npm run build`, and deploy
 `npx wrangler deploy`. The user confirmed these settings were saved on
 October 13, 2026. Create `dev` from the verified bootstrap revision; that local
@@ -84,13 +89,27 @@ to production. The required empty `previews` block is in `wrangler.jsonc`;
 assets and compatibility settings remain at the top level. There are no runtime
 secrets or backend bindings in this diagnostic.
 
-The originally planned Version URL
-<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/> is unverified.
-After the first successful preview build, record its actual stable Preview URL,
-update `scripts/manifests.mjs` if it differs, regenerate the manifests, and
-verify the exact SHA before Tableau Server testing. Keep the unique deployment
-URL as release evidence. Never run `wrangler deploy` against the production
-Worker from non-production builds.
+The stable Worker Preview URL is verified:
+<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>.
+It matches `scripts/manifests.mjs` and `AIGuide.dev.trex`, so no URL correction
+was needed. Future URL changes require regenerating the manifest and verifying
+the exact SHA before Tableau Server testing. Keep the unique deployment URL
+as release evidence. Never run `wrangler deploy` against the production Worker
+from non-production builds.
+
+### First development publication evidence
+
+- GitHub `dev` SHA: `d907a9670009d19bdbc748db292040edfa217efe`.
+- Cloudflare build succeeded on October 13, 2026 at 19:48 UTC.
+- Build ID: `ca7e3662-f5e2-4e45-b8e8-18fa2a8692e3`;
+  [build details](https://dash.cloudflare.com/4de7b09d2abbcce761d4c3ead3d330f3/workers/services/view/tableau-chatbot-ui/production/previews/dev/builds/ca7e3662-f5e2-4e45-b8e8-18fa2a8692e3).
+- Full deployed verifier passed HTML, framing/cache headers, exact SHA/branch,
+  missing-file 404s, all three manifest URLs/permissions/icons, JS/CSS, SDK
+  checksum, and hosted SDK notice.
+- Production was separately reverified at main bootstrap `830ce91` after the
+  development push.
+- The unique Preview deployment URL/ID remains to be copied from Cloudflare's
+  deployment details for the release evidence record.
 
 ## Headers and missing files
 
@@ -126,8 +145,9 @@ with the manifest already in the workbook.
 | Local HTTP verification and failure detection | Passed; correct revision, headers, body, 404, and rejection fixtures |
 | Production bootstrap deployment | Passed: `830ce91`, October 13, 2026; HTML, revision, framing/cache headers, and 404 behavior |
 | Local resize diagnostic | Passed: 21 tests, production build, Worker dry run, full asset verification, and Chrome 155 browser smoke |
+| Local chat interface | Passed: 44 tests across seven files, local Chrome 155 chat smoke, production/development test-control guards, build, Worker dry run, and full local asset verifier; Desktop manual acceptance pending |
 | Rollback and recovery rehearsal | Pending |
-| Development alias | Pending |
+| Development Worker Preview | Passed: Cloudflare build and full deployed verifier at `d907a96`, October 13, 2026 |
 | Desktop resize gate | Core interaction checks passed by user report on October 13, 2026; remaining evidence and keyboard/layout checks in `RESIZE_SPIKE.md` |
 | Server authoring/viewing resize gate | Pending |
 | Firefox and Chrome acceptance | Pending |

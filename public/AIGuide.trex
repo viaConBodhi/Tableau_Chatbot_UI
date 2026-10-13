@@ -3,7 +3,7 @@
   <dashboard-extension id="com.github.viaconbodhi.cctr.aiguide" extension-version="0.1.0">
     <default-locale>en_US</default-locale>
     <name resource-id="name"/>
-    <description>CCTR AI Guide Phase 1 resize diagnostic. No backend connected.</description>
+    <description>CCTR AI Guide Phase 1 chat demo. No backend connected.</description>
     <author name="CCTR" email="infoserv@vcu.edu" organization="CCTR" website="https://github.com/viaConBodhi/Tableau_Chatbot_UI"/>
     <min-api-version>1.7</min-api-version>
     <source-location>

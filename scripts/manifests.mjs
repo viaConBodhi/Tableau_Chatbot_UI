@@ -18,7 +18,7 @@ export function makeManifest(configuration, iconBase64) {
         '@_extension-version': '0.1.0',
         'default-locale': 'en_US',
         name: { '@_resource-id': 'name' },
-        description: 'CCTR AI Guide Phase 1 resize diagnostic. No backend connected.',
+        description: 'CCTR AI Guide Phase 1 chat demo. No backend connected.',
         author: {
           '@_name': 'CCTR',
           '@_email': 'infoserv@vcu.edu',

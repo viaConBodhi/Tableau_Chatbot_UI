@@ -24,9 +24,16 @@ delivery. Phase 2 supplies on-prem gateway, SSO, authorization, and AWS.
    verifier, documentation. Publish and verify the exact production revision.
 2. Create `dev` only after production verification. Add Vite/React and Tableau
    SDK, then publish the `dev` Worker Preview and verify its stable URL.
-3. Prove floating self-resize in Desktop and Server before porting chat.
+3. Prove floating self-resize in Desktop. Hosted Server acceptance remains
+   required for release, but its safe-list prerequisite currently delays testing.
 4. Port UI and deterministic mocks; run automated/manual acceptance.
 5. Review `dev` to `main`, approve merge, and verify production.
+
+On October 13, 2026, the user explicitly requested continuing the chat interface
+for Desktop while awaiting the Tableau Server administrator's safe-list entry.
+This overrides the earlier requirement to finish hosted resize acceptance before
+the UI port. Server layout/browser acceptance remains pending and required before
+production release; this change does not authorize production publication.
 
 Retain publication approval checkpoints. Follow `DEPLOYMENT.md` for settings,
 URLs, verification, and rollback. Exact-pin compatible dependencies and commit
@@ -65,9 +72,10 @@ dashboard size, versions/mode, and last resize outcome.
   600x400 and a larger pilot dashboard; useful size warning below support size.
 - Conversation state lives above panel visibility; closure cannot discard replies.
 
-Gate: Desktop and Server authoring/non-author viewing pass init, expansion,
-collapse/restoration, layouts, and small/large tests. Record failures before UI
-port. If necessary, validate native Show/Hide over a floating container and agree
+Gate for release: Desktop and Server authoring/non-author viewing pass init,
+expansion, collapse/restoration, layouts, and small/large tests. The Desktop UI
+port may proceed while Server safe-list approval is pending, as authorized above.
+If necessary, validate native Show/Hide over a floating container and agree
 on the changed interaction before continuing.
 
 ## Chat and API seam

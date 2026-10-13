@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { MANIFESTS, makeManifest, validateManifest } from '../scripts/manifests.mjs';

@@ -1,7 +1,9 @@
 # Tableau resize diagnostic acceptance
 
-The resize spike is Step 1 of the agreed plan. It is not the chat UI. Do not port
-the chat until the Desktop and hosted Server gates below are recorded as passed.
+The resize spike is Step 1 of the agreed plan. The user authorized the Desktop
+chat UI port on October 13, 2026 while awaiting the Server safe-list entry.
+Hosted acceptance remains pending and is still a gate for production release.
+The original diagnostic is retained under the development-only Layout test view.
 
 ## What is ready locally
 
@@ -73,9 +75,10 @@ on October 13, 2026. In Workers Previews Base, use build `npm run build` and Pre
 command `npx wrangler preview`; leave production branch `main` and its deploy
 command alone. See `DEPLOYMENT.md` for the confirmed preview model and settings.
 
-After the approved `dev` push, record the actual stable Preview URL from the
-successful build, update/regenerate `AIGuide.dev.trex` if needed, and verify the
-exact SHA there. The originally planned Version URL is not yet verified.
+The approved `dev` push completed, Cloudflare Builds succeeded, and the full
+deployed verifier passed at `d907a9670009d19bdbc748db292040edfa217efe` on
+October 13, 2026. Its stable Preview URL matches the development manifest:
+<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>.
 
 Have a site administrator add the exact extension source URL to the safe list.
 Confirm extensions are enabled, applicable consent, and pilot-user Download
@@ -83,6 +86,8 @@ Summary Data permission. Do not use an unrestricted hosting wildcard.
 
 Load `public/AIGuide.dev.trex` in a test workbook and publish it. Desktop
 publication is a valid route; document web-authoring installation if available.
+The user's first hosted attempt requires the Server administrator to safe-list
+the app; hosted interaction/sizing tests have not passed yet.
 Repeat the Desktop checklist in Server authoring and non-author viewing modes,
 in Firefox and Chrome. Confirm refresh/load behavior and diagnose console/API
 errors without logging identity or worksheet data.
@@ -96,12 +101,13 @@ keyboard behavior, consent/permissions, and export observations.
 | Gate | Result |
 | --- | --- |
 | Production hosting bootstrap | Passed (`830ce91`) |
-| Local automated and Chrome browser checks | Passed: 21 tests across four files; Chrome 155.0.8059.40 browser smoke |
+| Development hosting and manifests | Passed: Cloudflare build and full deployed verification (`d907a96`); Tableau Server integration remains pending |
+| Local automated and Chrome browser checks | Passed: 44 tests across seven files, including host/geometry/manifest regressions and chat; Chrome 155.0.8059.40 chat/browser smoke |
 | Actual Tableau Desktop | Core interaction checks passed by user report: initialization, toggling, geometry restoration, text/probe/scroll retention, smaller dashboard fit, and reload reset; version/size details, live layout changes, and keyboard checks pending |
 | Hosted Server authoring and viewing | Pending |
 | Firefox and Chrome within Server | Pending |
 | Rollback/recovery rehearsal | Pending |
 
-If self-resize or iframe-state preservation fails, retain this diagnostic and
-record the exact failure. Validate the native Show/Hide floating-container
-alternative and agree on that interaction before proceeding to the chat port.
+If hosted self-resize or iframe-state preservation fails, retain this diagnostic
+and record the exact failure. Validate the native Show/Hide floating-container
+alternative and agree on that interaction before releasing the chat port.

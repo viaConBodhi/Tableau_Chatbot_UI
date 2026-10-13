@@ -9,5 +9,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./tests/setup.js'],
     clearMocks: true,
+    maxWorkers: 2,
+    pool: 'vmThreads',
   },
 });

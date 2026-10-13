@@ -48,24 +48,49 @@ environment URLs, application assets, and the SDK checksum.
 
 ## Development publishing (after the bootstrap gate)
 
-Create `dev` from the verified bootstrap revision. Enable non-production builds
-and configure their command:
+The user confirmed on October 13, 2026 that Settings > Build offers Production
+and Previews Base, with Builds for Preview branches enabled. This Worker uses
+the newer Worker Previews model. The reported Preview command had the typo
+`npx wrander preview`, and its Build command was blank.
+
+Select Previews Base, edit its build configuration, and save:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` |
+| Preview command | `npx wrangler preview` |
+| Root directory | `/` |
+| Builds for Preview branches | Enabled |
+
+Production retains branch `main`, build `npm run build`, and deploy
+`npx wrangler deploy`. The user confirmed these settings were saved on
+October 13, 2026. Create `dev` from the verified bootstrap revision; that local
+branch already exists. Push it only after publication review/approval.
+
+On October 13, 2026, the owner confirmed the SDK licensing review was complete
+and approved committing/pushing the prepared `dev` changes to trigger the
+Cloudflare development preview build. Production publication remains a separate
+checkpoint.
+
+For an approved manual publication from `dev`, the branch-guarded helper is:
 
 ```sh
 npm run deploy:dev
 ```
 
-This script enforces the `dev` branch and invokes
-`wrangler versions upload --preview-alias dev`. It uses a Worker Version URL,
-updating the development alias without
-promoting that version to production. Preserve this model; do not switch to a
-different Cloudflare preview model while following these instructions.
+This helper invokes `wrangler preview --name dev`. The CI command defaults its
+Preview name to the branch. Both use Worker Previews, without promoting a version
+to production. The required empty `previews` block is in `wrangler.jsonc`;
+assets and compatibility settings remain at the top level. There are no runtime
+secrets or backend bindings in this diagnostic.
 
-Development: <https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
-
-Only `dev` may update that alias. Additional branches need separate aliases or
-a branch guard. Never run `wrangler deploy` against the production Worker from
-non-production builds.
+The originally planned Version URL
+<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/> is unverified.
+After the first successful preview build, record its actual stable Preview URL,
+update `scripts/manifests.mjs` if it differs, regenerate the manifests, and
+verify the exact SHA before Tableau Server testing. Keep the unique deployment
+URL as release evidence. Never run `wrangler deploy` against the production
+Worker from non-production builds.
 
 ## Headers and missing files
 
@@ -100,10 +125,10 @@ with the manifest already in the workbook.
 | Local bootstrap build and Wrangler dry run | Passed on Node 22.23.3 and 24.21.0 / Wrangler 4.149.0 |
 | Local HTTP verification and failure detection | Passed; correct revision, headers, body, 404, and rejection fixtures |
 | Production bootstrap deployment | Passed: `830ce91`, October 13, 2026; HTML, revision, framing/cache headers, and 404 behavior |
-| Local resize diagnostic | Passed: 20 tests, production build, Worker dry run, full asset verification, and Chrome 155 browser smoke |
+| Local resize diagnostic | Passed: 21 tests, production build, Worker dry run, full asset verification, and Chrome 155 browser smoke |
 | Rollback and recovery rehearsal | Pending |
 | Development alias | Pending |
-| Desktop resize gate | Pending |
+| Desktop resize gate | Core interaction checks passed by user report on October 13, 2026; remaining evidence and keyboard/layout checks in `RESIZE_SPIKE.md` |
 | Server authoring/viewing resize gate | Pending |
 | Firefox and Chrome acceptance | Pending |
 | Production extension release | Pending |

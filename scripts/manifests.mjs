@@ -21,6 +21,7 @@ export function makeManifest(configuration, iconBase64) {
         description: 'CCTR AI Guide Phase 1 resize diagnostic. No backend connected.',
         author: {
           '@_name': 'CCTR',
+          '@_email': 'infoserv@vcu.edu',
           '@_organization': 'CCTR',
           '@_website': 'https://github.com/viaConBodhi/Tableau_Chatbot_UI',
         },
@@ -54,6 +55,10 @@ export function validateManifest(xml, expected) {
   }
   if (extension.author?.['@_name'] !== 'CCTR' || !extension.author?.['@_website']?.startsWith('https://')) {
     throw new Error(`${expected.file}: missing author or HTTPS support website.`);
+  }
+  // Tableau's Author-CT schema requires email, although the prose API docs omit it.
+  if (typeof extension.author?.['@_email'] !== 'string' || !extension.author['@_email'].trim()) {
+    throw new Error(`${expected.file}: missing required author email.`);
   }
   if (manifest.resources?.resource?.text?.['#text'] !== expected.name) throw new Error(`${expected.file}: incorrect display name.`);
   const icon = Buffer.from(extension.icon || '', 'base64');

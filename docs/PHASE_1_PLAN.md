@@ -23,7 +23,7 @@ delivery. Phase 2 supplies on-prem gateway, SSO, authorization, and AWS.
 1. Bootstrap `main`: placeholder, `dist`, pinned Wrangler, build identity,
    verifier, documentation. Publish and verify the exact production revision.
 2. Create `dev` only after production verification. Add Vite/React and Tableau
-   SDK, then publish the reserved development alias.
+   SDK, then publish the `dev` Worker Preview and verify its stable URL.
 3. Prove floating self-resize in Desktop and Server before porting chat.
 4. Port UI and deterministic mocks; run automated/manual acceptance.
 5. Review `dev` to `main`, approve merge, and verify production.
@@ -35,7 +35,8 @@ port; locally vendored `tableau.extensions.1.17.0.js` before app initialization.
 
 Generate local/dev/production manifests from one template: distinct names/IDs,
 base `com.github.viaconbodhi.cctr.aiguide`, version `0.1.0`, minimum API `1.7`,
-CCTR author/organization, GitHub support URL, original 70x70 PNG, and no full-data
+CCTR author/organization, required author email (`infoserv@vcu.edu`), HTTPS GitHub
+support URL, original 70x70 PNG, and no full-data
 permission. UTF-8 XML declaration at byte zero; hosted HTTPS, localhost HTTP.
 
 ## Host integration and panel

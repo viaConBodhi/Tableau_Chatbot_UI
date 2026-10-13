@@ -10,8 +10,9 @@ the resize diagnostic: prove Tableau integration before porting the chat UI.
 
 Production: <https://tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
 
-Planned development alias:
-<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
+Development uses a `dev` Worker Preview. Record its actual stable URL from the
+first successful preview build, then update the development manifest if needed.
+The originally planned Version URL has not been verified.
 
 Use **Cloudflare Workers Builds**, not Pages:
 
@@ -25,6 +26,10 @@ Use **Cloudflare Workers Builds**, not Pages:
 
 Wrangler is pinned in `package.json` and `package-lock.json`. Cloudflare supplies
 the build authentication; credentials do not belong in this repository.
+
+In **Previews Base**, set Build command to `npm run build`, Preview command to
+`npx wrangler preview`, Root directory to `/`, and enable preview-branch builds.
+The required `previews` block is in `wrangler.jsonc`.
 
 ## Local verification
 
@@ -58,8 +63,10 @@ not prove Tableau integration. Production builds ignore the standalone flag.
 Verify the hosted development extension against the published checkout's commit:
 
 ```sh
-npm run verify:deploy -- https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/
+npm run verify:deploy -- "<actual stable Preview URL>"
 ```
+
+Replace the placeholder with the URL reported by the successful preview build.
 
 You can supply a full expected commit SHA as the second argument. Verification
 checks HTML, revision, headers, missing-file behavior, scripts/styles, XML

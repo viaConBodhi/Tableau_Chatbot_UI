@@ -10,10 +10,11 @@ The upstream Apache License 2.0 text, including Salesforce's copyright notice,
 is retained at `public/licenses/tableau-extensions-api.LICENSE.txt` and copied
 into deployed assets. Preserve these files and upstream notices on updates.
 
-The project's existing GPLv2 license has not been changed. Licensing compatibility
-for distribution of the combined extension remains an owner-review item before
-publishing the development extension; this notice does not relicense the SDK or
-provide a legal compatibility determination.
+The project's existing GPLv2 license has not been changed. On October 13, 2026,
+the owner confirmed that the licensing review for the project and Apache-2.0
+Tableau SDK was complete and authorized development publication. This records
+the owner's confirmation; it does not relicense the SDK or provide a legal
+compatibility determination.
 
 ## Artwork
 

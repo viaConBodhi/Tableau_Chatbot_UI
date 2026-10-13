@@ -48,14 +48,34 @@ If tiled placement is used by mistake, the diagnostic must explain floating
 placement and allow retry after correction. Below 320 × 300, it must show a size
 warning instead of attempting an unusable expansion.
 
+The initial Desktop attempt on October 13, 2026 stopped at manifest parsing
+(FD722608: missing required author `email`). All three generated manifests now
+include the designated support contact, `infoserv@vcu.edu`, and build validation
+rejects missing or blank email. Tableau's [Author-CT schema](https://github.com/tableau/tableau-document-schemas/blob/main/schemas/2026_1/twb_2026.1.0.xsd)
+requires email, name, and an HTTPS website. Reload the regenerated local manifest
+when retesting after a manifest change.
+
+On October 13, 2026, the user confirmed that changing the extension to floating
+and reloading resolved the pink initialization error. The diagnostic panel loads,
+opens/closes, and retains typed text across close/reopen. This tested the local
+`dev` working tree based on `509dbf2`, with the manifest email fixes above.
+The user subsequently confirmed that position/size restoration, probe count
+and scroll retention, fitting a smaller dashboard, and clearing text/probe on
+reload all appear to work. The core Desktop interaction checks pass based on
+that report. Dashboard dimensions, displayed Desktop/API versions, live layout
+changes, and keyboard focus still need explicit evidence for the final acceptance
+record. No hosted Server results have been reported yet.
+
 ## Hosted Server gate
 
-Before publishing `dev`, complete publication review and the SDK licensing
-owner-review item. Enable Workers non-production builds with command
-`npm run deploy:dev`; leave production branch `main` and its deploy command alone.
+The owner confirmed SDK licensing review and approved development publication
+on October 13, 2026. In Workers Previews Base, use build `npm run build` and Preview
+command `npx wrangler preview`; leave production branch `main` and its deploy
+command alone. See `DEPLOYMENT.md` for the confirmed preview model and settings.
 
-After the approved `dev` push, verify the exact SHA at:
-<https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>.
+After the approved `dev` push, record the actual stable Preview URL from the
+successful build, update/regenerate `AIGuide.dev.trex` if needed, and verify the
+exact SHA there. The originally planned Version URL is not yet verified.
 
 Have a site administrator add the exact extension source URL to the safe list.
 Confirm extensions are enabled, applicable consent, and pilot-user Download
@@ -76,8 +96,8 @@ keyboard behavior, consent/permissions, and export observations.
 | Gate | Result |
 | --- | --- |
 | Production hosting bootstrap | Passed (`830ce91`) |
-| Local automated and Chrome browser checks | Passed: 20 tests across four files; Chrome 155.0.8059.40 browser smoke |
-| Actual Tableau Desktop | Pending |
+| Local automated and Chrome browser checks | Passed: 21 tests across four files; Chrome 155.0.8059.40 browser smoke |
+| Actual Tableau Desktop | Core interaction checks passed by user report: initialization, toggling, geometry restoration, text/probe/scroll retention, smaller dashboard fit, and reload reset; version/size details, live layout changes, and keyboard checks pending |
 | Hosted Server authoring and viewing | Pending |
 | Firefox and Chrome within Server | Pending |
 | Rollback/recovery rehearsal | Pending |

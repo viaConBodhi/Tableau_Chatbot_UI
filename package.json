@@ -1,0 +1,14 @@
+{
+  "name": "cctr-tableau-ai-guide",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "build": "node scripts/build-stub.mjs",
+    "preview": "wrangler dev --local --ip 127.0.0.1",
+    "verify:deploy": "node scripts/verify-deploy.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": { "wrangler": "4.149.0" }
+}

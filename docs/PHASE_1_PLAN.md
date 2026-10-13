@@ -7,6 +7,9 @@ extension. Phase 1 supplies an in-memory mock and GitHub-to-Cloudflare Workers
 delivery. Phase 2 supplies on-prem gateway, SSO, authorization, and AWS.
 
 - Server 2026.2.0 (`20262.26.0603.1643`); Firefox and Chrome.
+- Running Desktop confirmed as 2025.1 (`20251.26.0905.0333`), Qt WebEngine
+  5.15.18 / Chromium 87.0.4280.144. Build for Chrome 87 and avoid newer-only
+  runtime APIs. Desktop 2026.2 is installed but was not the running test process.
 - One company pilot workbook, followed by author opt-in.
 - Names-only dashboard/worksheet context. No identity, filters, parameters,
   underlying data, or external transmission of chat/context.

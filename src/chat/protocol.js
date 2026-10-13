@@ -1,13 +1,12 @@
 export const MAX_MESSAGE_LENGTH = 2000;
 
-export function secureId() {
-  const cryptoApi = globalThis.crypto;
+export function secureId(cryptoApi = globalThis.crypto) {
   if (cryptoApi?.randomUUID) return cryptoApi.randomUUID();
   if (cryptoApi?.getRandomValues) {
     const bytes = cryptoApi.getRandomValues(new Uint8Array(16));
     return Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('');
   }
-  throw new Error('Secure browser randomness is unavailable.');
+  throw Object.assign(new Error('Secure browser randomness is unavailable. Reload the extension or use a supported Tableau Desktop browser.'), { code: 'SECURE_RANDOM_UNAVAILABLE' });
 }
 
 export function safeSourceUrl(raw) {

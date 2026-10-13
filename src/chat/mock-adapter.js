@@ -7,7 +7,10 @@ export function resolveMockScenario(search, allowOverrides) {
   return MOCK_SCENARIOS.includes(value) ? value : 'ok';
 }
 
-const copy = value => structuredClone(value);
+// Mock envelopes contain JSON values only. Older Tableau Desktop webviews do
+// not expose structuredClone; copying JSON also keeps replies independent of
+// the adapter's stored conversation and request cache.
+const copy = value => JSON.parse(JSON.stringify(value));
 
 // No fetch, Forge bridge, browser storage, or AWS calls. Every instance owns
 // its conversations and completed request cache; reload creates a new instance.

@@ -1,9 +1,52 @@
 // @vitest-environment node
-import { describe, expect, it } from 'vitest';
-import { readConversation, safeSourceUrl } from '../src/chat/protocol.js';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { webcrypto } from 'node:crypto';
+import { readConversation, safeSourceUrl, secureId } from '../src/chat/protocol.js';
+import { createChatController } from '../src/chat/controller.js';
 import { createMockAdapter, resolveMockScenario } from '../src/chat/mock-adapter.js';
 
+afterEach(() => vi.unstubAllGlobals());
+
 describe('reply validation and mock contract', () => {
+  it('starts, sends, recovers a lost reply, and resets without newer browser APIs', async () => {
+    vi.stubGlobal('structuredClone', undefined);
+    vi.stubGlobal('crypto', { getRandomValues: webcrypto.getRandomValues.bind(webcrypto) });
+    const adapter = createMockAdapter({ scenario: 'send-fail-once', delayMs: 0 });
+    const chat = createChatController({ adapter });
+    expect(await chat.start()).toBe(true);
+    expect(chat.getSnapshot().conversation.id).toMatch(/^[a-f\d]{32}$/);
+    chat.setDraft('Desktop compatibility');
+    expect(await chat.send()).toBe(false);
+    expect(await chat.retry()).toBe(true);
+    expect(chat.getSnapshot().conversation.messages).toHaveLength(3);
+    expect(await chat.reset()).toBe(true);
+    expect(chat.getSnapshot().conversation.messages).toHaveLength(1);
+    chat.dispose();
+  });
+
+  it('keeps cached mock replies independent of caller changes without structuredClone', async () => {
+    vi.stubGlobal('structuredClone', undefined);
+    const adapter = createMockAdapter({ delayMs: 0 });
+    const initial = await adapter.startConversation();
+    initial.conversation.messages[0].text = 'Changed by caller';
+    const request = { conversationId: initial.conversation.id, requestId: 'copy-test', message: 'Question', context: null };
+    const first = await adapter.sendMessage(request);
+    expect(first.conversation.messages[0].text).toContain('Hello!');
+    first.conversation.messages.at(-1).text = 'Changed by caller';
+    const repeated = await adapter.sendMessage(request);
+    expect(repeated.conversation.messages.at(-1).text).toContain('Demo reply');
+  });
+
+  it('reports unavailable secure randomness explicitly instead of retrying a generic startup failure', async () => {
+    expect(() => secureId({})).toThrow(expect.objectContaining({ code: 'SECURE_RANDOM_UNAVAILABLE' }));
+    vi.stubGlobal('crypto', {});
+    const chat = createChatController({ adapter: createMockAdapter({ delayMs: 0 }) });
+    expect(await chat.start()).toBe(false);
+    expect(chat.getSnapshot().error).toMatchObject({ code: 'SECURE_RANDOM_UNAVAILABLE', operation: 'start' });
+    expect(chat.getSnapshot().error.message).toContain('Secure browser randomness');
+    chat.dispose();
+  });
+
   it('accepts conversation envelopes without a top-level answer and deduplicates identical IDs', () => {
     const message = { id: 'same', role: 'assistant', text: 'Reply' };
     const conversation = readConversation({ ok: true, conversation: { id: 'c', messages: [message, message] } });

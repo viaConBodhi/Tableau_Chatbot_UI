@@ -90,6 +90,29 @@ scroll/draft retention, and the original host/geometry/manifest regression suite
 
 Desktop chat manual acceptance and hosted Server acceptance remain pending.
 
+### Desktop startup compatibility fix
+
+The user reported a disabled composer and `The demo could not start` during the
+first Desktop chat attempt. Reading the running process identified Desktop
+2025.1 (`20251.26.0905.0333`), Qt WebEngine 5.15.18, and Chromium 87.0.4280.144.
+Desktop 2026.2 is installed separately; Server remains the reported 2026.2.
+
+The exact startup/retry failure was reproduced by disabling `structuredClone`.
+The mock now copies its JSON-only replies with JSON serialization. Secure IDs
+retain the cryptographic `getRandomValues` fallback when `randomUUID` is missing;
+unavailable secure randomness now produces an explicit error. The built JavaScript
+targets Chrome 87. The mock copying regression also proves caller mutations do
+not alter stored replies or cached retry results.
+
+All 26 targeted protocol/controller/chat UI tests passed after this fix. Both the
+local chat smoke and built-client smoke passed with `structuredClone` and
+`crypto.randomUUID` disabled. The local check includes startup/send/retry/reset,
+sources, draft/scroll retention, replies while closed, small-layout controls,
+and reload. The built check also confirms development overrides stay disabled.
+The application build and full local asset verifier passed. No page errors or
+external chat/context requests were observed. Actual Desktop retest remains
+pending user confirmation.
+
 On October 13, 2026, all 44 tests across seven files passed on Node 22.23.3.
 The runner uses two VM-thread workers with per-file isolation; the original fork
 pool hit startup timeouts on this Windows-mounted workspace. Pure controller,

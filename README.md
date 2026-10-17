@@ -3,10 +3,11 @@
 AI Guide will provide a chat panel inside a Tableau dashboard. Phase 1 uses
 in-memory mock responses; it does not connect to AWS or collect user identity.
 
-The production hosting bootstrap and hosted development resize diagnostic are
-verified. The local `dev` branch now contains the Forge-style chat interface with
-mock replies, sources, retry, and New conversation. Desktop chat acceptance is
-next; hosted Server acceptance awaits the administrator's safe-list entry.
+The production hosting bootstrap and hosted development chat interface are
+verified. The `dev` branch contains the Forge-style chat interface with mock
+replies, sources, retry, and New conversation. The user confirmed Desktop
+greeting, typing, Send, and New conversation; additional manual scenarios and
+hosted Server acceptance remain pending.
 
 ## Hosting
 
@@ -15,9 +16,10 @@ Production: <https://tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
 Development Worker Preview:
 <https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>
 
-The first `dev` publication passed Cloudflare Builds and full HTTP verification
-at commit `d907a96` on October 13, 2026. The existing development manifest already
-uses the verified stable Preview URL. Hosted Tableau Server acceptance is next.
+The chat `dev` publication passed Cloudflare Builds and full HTTP verification
+at commit `d118346` on October 13, 2026. The development manifest uses the
+verified stable Preview URL. Hosted Tableau Server acceptance awaits the
+administrator's safe-list entry.
 
 Use **Cloudflare Workers Builds**, not Pages:
 

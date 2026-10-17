@@ -111,6 +111,19 @@ from non-production builds.
 - The unique Preview deployment URL/ID remains to be copied from Cloudflare's
   deployment details for the release evidence record.
 
+### Chat development publication evidence
+
+- GitHub `dev` SHA: `d1183466d390bd4d37b91b0619c9d9bcfc70b104`.
+- Cloudflare build succeeded on October 13, 2026 at 21:03:54 UTC.
+- Build ID: `e6cd470e-aab4-4c81-b33c-1ff0dcab23a9`;
+  [build details](https://dash.cloudflare.com/4de7b09d2abbcce761d4c3ead3d330f3/workers/services/view/tableau-chatbot-ui/production/previews/dev/builds/e6cd470e-aab4-4c81-b33c-1ff0dcab23a9).
+- The full deployed verifier passed at the stable development URL, including
+  revision, branch, headers, manifests, icons, assets, SDK checksum, and notice.
+- Production was separately reverified at bootstrap `830ce91`.
+- The complete 47-test suite passed before publication. The user confirmed
+  Desktop greeting, typing, Send, dashboard-name demo replies, and New
+  conversation. Hosted Tableau Server acceptance remains pending.
+
 ## Headers and missing files
 
 `public/_headers` is copied to `dist`: `nosniff`, `noindex`, revalidation for
@@ -147,7 +160,7 @@ with the manifest already in the workbook.
 | Local resize diagnostic | Passed: 21 tests, production build, Worker dry run, full asset verification, and Chrome 155 browser smoke |
 | Local chat interface | Passed: full 47-test suite across seven files, browser checks without newer APIs, production/development test-control guards, build, dry run, and local asset verification. User confirmed Desktop greeting, typing, Send, dashboard-name demo replies, and New conversation; remaining manual scenarios pending |
 | Rollback and recovery rehearsal | Pending |
-| Development Worker Preview | Passed: Cloudflare build and full deployed verifier at `d907a96`, October 13, 2026 |
+| Development Worker Preview | Passed: chat Cloudflare build and full deployed verifier at `d118346`, October 13, 2026 |
 | Desktop resize gate | Core interaction checks passed by user report on October 13, 2026; remaining evidence and keyboard/layout checks in `RESIZE_SPIKE.md` |
 | Server authoring/viewing resize gate | Pending |
 | Firefox and Chrome acceptance | Pending |

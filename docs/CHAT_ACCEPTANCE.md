@@ -142,3 +142,9 @@ These simulated SDK checks are not actual Tableau Server acceptance.
 The application build, Wrangler dry run, and full local Worker verifier also
 passed manifest/URL/icon/header/404/asset/SDK-license checks. Ignored screenshots
 and browser results are in `.wrangler/browser-smoke/chat-*`.
+
+The chat build was published to the stable development Worker Preview at
+`d1183466d390bd4d37b91b0619c9d9bcfc70b104`. Cloudflare Builds succeeded on
+October 13, 2026 at 21:03:54 UTC, and the full deployed verifier passed. Production
+was separately verified at bootstrap `830ce91`. Actual hosted Tableau Server
+checks remain pending the administrator's safe-list entry.

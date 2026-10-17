@@ -81,7 +81,7 @@ command `npx wrangler preview`; leave production branch `main` and its deploy
 command alone. See `DEPLOYMENT.md` for the confirmed preview model and settings.
 
 The approved `dev` push completed, Cloudflare Builds succeeded, and the full
-deployed verifier passed at `d907a9670009d19bdbc748db292040edfa217efe` on
+deployed verifier passed for the chat build at `d1183466d390bd4d37b91b0619c9d9bcfc70b104` on
 October 13, 2026. Its stable Preview URL matches the development manifest:
 <https://dev-tableau-chatbot-ui.algo-alert-cramer.workers.dev/>.
 
@@ -106,8 +106,8 @@ keyboard behavior, consent/permissions, and export observations.
 | Gate | Result |
 | --- | --- |
 | Production hosting bootstrap | Passed (`830ce91`) |
-| Development hosting and manifests | Passed: Cloudflare build and full deployed verification (`d907a96`); Tableau Server integration remains pending |
-| Local automated and Chrome browser checks | Passed: 44 tests across seven files, including host/geometry/manifest regressions and chat; Chrome 155.0.8059.40 chat/browser smoke |
+| Development hosting and manifests | Passed: chat Cloudflare build and full deployed verification (`d118346`); Tableau Server integration remains pending |
+| Local automated and Chrome browser checks | Passed: 47 tests across seven files, including host/geometry/manifest regressions and chat; Chrome 155.0.8059.40 chat/browser smoke |
 | Actual Tableau Desktop | Core interaction checks passed by user report: initialization, toggling, geometry restoration, text/probe/scroll retention, smaller dashboard fit, and reload reset; version/size details, live layout changes, and keyboard checks pending |
 | Hosted Server authoring and viewing | Pending |
 | Firefox and Chrome within Server | Pending |
